@@ -6,7 +6,7 @@ import ShowData from './todoComponent/ShowData';
 import axios from 'axios';
 
 const App = () => {
-  const host = 'https://mern-todo-list-backend.onrender.com';
+  const host = process.env.base_url ||'http://localhost:5555';
   const [item, setItem] = useState({ data: '' });
   const [addData, setAddData] = useState([]);
   const [holderText, setHolderText] = useState("Add Item");

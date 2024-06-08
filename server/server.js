@@ -14,7 +14,7 @@ connectDB();
 
 // cors
 const corsOptions = {
-    origin: /\.onrender\.com$/,
+    origin: [/\.onrender\.com$/, 'http://localhost:3000', 'http://13.201.251.105'],
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
 };
 app.use(cors(corsOptions));
@@ -27,6 +27,6 @@ app.get("/", (req, res) => res.send("Server is running"));
 app.use('/api/data', data);
 
 // setting up port
-const PORT = process.env.PORT || 8000;
+const PORT = process.env.PORT || 5555;
 
 app.listen(PORT, () => console.log(`server is running on http://localhost:${PORT}`));

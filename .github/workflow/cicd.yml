@@ -1,0 +1,50 @@
+name: Deploy testing_github_action (GitHub Repository Name)
+
+on: 
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Source
+        uses: actions/checkout@v4
+
+      - name: Login to Docker Hub
+        run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build Docker Backend Image
+        run: docker build -t dilus1322747/testing_github_action_backend . 
+
+      - name: Build Docker Frontend Image
+        run: docker build -t dilus1322747/testing_github_action_frontend .
+
+      - name: Push Docker Backend Image
+        run: docker push dilus1322747/testing_github_action_backend:latest
+
+      - name: Push Docker Frontend Image
+        run: docker push dilus1322747/testing_github_action_frontend:latest
+ 
+  deploy:
+    needs: build
+    runs-on: self-hosted 
+    steps:
+      - name: Pull Backend image from Docker Hub
+        run: docker pull dilus1322747/testing_github_action_backend:latest
+      
+      - name: Pull Frontend image from Docker Hub
+        run: docker pull dilus1322747/testing_github_action_frontend:latest
+
+      - name: Delete old Backend container
+        run: docker rm -f  testing_github_action_backend|| true
+
+      - name: Delete old Frontend container
+        run: docker rm -f testing_github_action_frontend || true
+
+      - name: Run Backend Docker Container
+        run: docker run -d -p 5555:5555 --name testing_github_action_backend  dilus1322747/testing_github_action_backend
+
+      - name: Run Frontend Docker Container
+        run: docker run -d -p 5173:80 --name testing_github_action_frontend dilus1322747/testing_github_action_frontend

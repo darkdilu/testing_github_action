@@ -11,7 +11,8 @@ jobs:
     steps:
       - name: Checkout Source
         uses: actions/checkout@v4
-
+      - name: List Contents of client directory
+        run: ls -l ./client
       - name: Login to Docker Hub
         run: docker login -u ${{ secrets.DOCKER_USERNAME}} -p ${{ secrets.DOCKER_PASSWORD}}
 

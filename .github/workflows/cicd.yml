@@ -39,19 +39,19 @@ jobs:
     runs-on: self-hosted 
     steps:
       - name: Pull Backend image from Docker Hub
-        run: docker pull dilus1322747/testing_github_action_backend:latest
+        run: sudo docker pull dilus1322747/testing_github_action_backend:latest
       
       - name: Pull Frontend image from Docker Hub
-        run: docker pull dilus1322747/testing_github_action_frontend:latest
+        run: sudo docker pull dilus1322747/testing_github_action_frontend:latest
 
       - name: Delete old Backend container
-        run: docker rm -f  testing_github_action_backend|| true
+        run: sudo docker rm -f  testing_github_action_backend|| true
 
       - name: Delete old Frontend container
-        run: docker rm -f testing_github_action_frontend || true
+        run: sudo docker rm -f testing_github_action_frontend || true
 
       - name: Run Backend Docker Container
-        run: docker run -d -p 5555:5555 --name testing_github_action_backend  dilus1322747/testing_github_action_backend
+        run: sudo docker run -d -p 5555:5555 --name testing_github_action_backend  dilus1322747/testing_github_action_backend
 
       - name: Run Frontend Docker Container
-        run: docker run -d -p 5173:80 --name testing_github_action_frontend dilus1322747/testing_github_action_frontend
+        run: sudo docker run -d -p 5173:80 --name testing_github_action_frontend dilus1322747/testing_github_action_frontend

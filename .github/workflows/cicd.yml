@@ -15,11 +15,14 @@ jobs:
       - name: Login to Docker Hub
         run: docker login -u ${{ secrets.DOCKER_USERNAME}} -p ${{ secrets.DOCKER_PASSWORD}}
 
-      - name: Build Docker Backend Image
-        run: docker build -t dilus1322747/testing_github_action_backend ./server 
 
       - name: Build Docker Frontend Image
         run: docker build -t dilus1322747/testing_github_action_frontend ./client
+
+      - name: Build Docker Backend Image
+        run: docker build -t dilus1322747/testing_github_action_backend ./server 
+
+      
 
       - name: Push Docker Backend Image
         run: docker push dilus1322747/testing_github_action_backend:latest
